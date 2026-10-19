@@ -1,0 +1,45 @@
+[
+  {
+    "id": "taekwon-do",
+    "nome": "Taekwon-Do",
+    "jogo": "Taekwon-Do (Super Famicom / SNES)",
+    "versao": "1.0",
+    "imagem": "",
+    "resumo": "Tradução para Português do Brasil e Inglês do jogo de luta Taekwon-Do.",
+    "detalhes": [
+      "Tradução dos menus, telas de seleção, diálogos e golpes.",
+      "Expande a ROM original para 2 MB para acomodar novos textos e fontes acentuadas."
+    ],
+    "mudancas": [
+      "Tradução completa dos textos e menus para Português do Brasil / Inglês",
+      "Adaptação de fontes e gráficos originais"
+    ],
+    "rom": {
+      "nome": "Taekwon-Do (J).smc",
+      "crc32": "93F29DDE",
+      "sha1": "DC61CB9B82EB58A9B09CB93A10B6731EAA4CD053"
+    }
+  },
+  {
+    "id": "super-mario-kart-nodsp",
+    "nome": "Super Mario Kart (noDSP)",
+    "jogo": "Super Mario Kart (SNES)",
+    "versao": "1.0",
+    "imagem": "",
+    "resumo": "Modificação que remove a dependência do chip DSP-1.",
+    "detalhes": [
+      "Remove a necessidade do coprocessador DSP-1 físico.",
+      "Permite rodar Super Mario Kart em flashcarts e repros sem suporte ao chip auxiliar."
+    ],
+    "nota": "Limitações conhecidas desta versão: compatível apenas com o modo single player (1 jogador), e a velocidade do jogo pode ficar reduzida quando há muitos sprites simultâneos na tela.",
+    "mudancas": [
+      "Remoção da dependência do chip DSP-1",
+      "Expansão da ROM para compatibilidade com o patch"
+    ],
+    "rom": {
+      "nome": "Super Mario Kart (USA).sfc",
+      "crc32": "CD80DB86",
+      "sha1": "47E103D8398CF5B7CBB42B95DF3A3C270691163B"
+    }
+  }
+]

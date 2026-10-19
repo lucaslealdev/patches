@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patches · lucasleal.dev</title>
+  <meta name="description" content="Patches BPS para jogos clássicos. Contribua com R$ 1 (ou mais) e ajude o próximo a baixar de graça.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>Patches</h1>
+    <p class="sub">Patches BPS para jogos clássicos. Cada download custa <strong>R$ 1</strong> via Pix.
+      Quem contribui a mais deixa downloads gratuitos para os próximos.</p>
+    <div id="saldo" class="saldo" hidden></div>
+  </header>
+
+  <main>
+    <section id="lista" class="lista" aria-live="polite">
+      <p class="carregando">Carregando patches…</p>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>Os arquivos são patches BPS: você precisa da sua própria ROM original. Aplique com
+      <a href="https://www.marcrobledo.com/RomPatcher.js/" target="_blank" rel="noopener">Rom Patcher JS</a> ou Flips.</p>
+  </footer>
+
+  <dialog id="modal" class="modal">
+    <form method="dialog" class="fechar-form"><button class="fechar" aria-label="Fechar">×</button></form>
+    <div id="modal-conteudo"></div>
+  </dialog>
+
+  <template id="tpl-card">
+    <article class="card">
+      <img class="capa" alt="" loading="lazy">
+      <div class="card-corpo">
+        <h2 class="nome"></h2>
+        <p class="jogo"></p>
+        <p class="resumo"></p>
+        <button class="btn btn-detalhes" type="button">Detalhes e download</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
