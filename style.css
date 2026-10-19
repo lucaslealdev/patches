@@ -100,7 +100,7 @@ code { font-size: .85em; word-break: break-all; }
 .modal {
   width: min(560px, calc(100vw - 32px));
   max-height: calc(100vh - 32px);
-  max-height: calc(100dvh - 32px); /* no celular, 100vh ignora a barra de endereço */
+  max-height: calc(100svh - 32px); /* svh = altura com as barras do navegador visíveis (pior caso no celular) */
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 24px;
