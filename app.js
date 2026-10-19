@@ -152,7 +152,7 @@ function mostrarEscolha(p) {
       <div class="cortesia">
         <p>🎁 Há <strong>${saldo.downloads_gratis}</strong> download${saldo.downloads_gratis > 1 ? "s" : ""}
           cortesia disponíve${saldo.downloads_gratis > 1 ? "is" : "l"}, pago${saldo.downloads_gratis > 1 ? "s" : ""} por quem contribuiu a mais.</p>
-        <div id="turnstile"></div>
+        <div id="turnstile-widget"></div>
         <button class="btn btn-primario" id="btn-gratis" type="button">Baixar grátis</button>
       </div>
       <p class="ou">ou contribua você também:</p>` : `<h3>Contribua e baixe</h3>`}
@@ -350,7 +350,8 @@ let turnstileCarregando = null;
 
 function carregarTurnstile() {
   if (!TURNSTILE_SITEKEY) return Promise.resolve(null);
-  if (window.turnstile) return Promise.resolve(window.turnstile);
+  // Checa a função, não só a variável: um elemento com id="turnstile" também viraria window.turnstile.
+  if (typeof window.turnstile?.render === "function") return Promise.resolve(window.turnstile);
   turnstileCarregando ??= new Promise((ok, falha) => {
     const s = document.createElement("script");
     s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
@@ -364,7 +365,7 @@ function carregarTurnstile() {
 
 async function renderizarTurnstile() {
   const ts = await carregarTurnstile().catch(() => null);
-  const alvo = $("#turnstile");
+  const alvo = $("#turnstile-widget");
   if (!ts || !alvo) return;
   turnstileId = ts.render(alvo, { sitekey: TURNSTILE_SITEKEY, language: "pt-br", size: "flexible" });
 }
