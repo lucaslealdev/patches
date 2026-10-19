@@ -70,9 +70,16 @@ function renderizarLista() {
     if (p.imagem) img.src = p.imagem;
     else img.remove();
     $(".nome", card).textContent = p.nome;
-    $(".jogo", card).textContent = `${p.jogo} · v${p.versao}`;
+    $(".jogo", card).textContent = p.versao ? `${p.jogo} · v${p.versao}` : p.jogo;
     $(".resumo", card).textContent = p.resumo;
-    $(".btn-detalhes", card).addEventListener("click", () => abrirPatch(p.id));
+    if (emDesenvolvimento(p)) {
+      $(".card", card).classList.add("em-dev");
+      $(".btn-detalhes", card).replaceWith(Object.assign(document.createElement("span"), {
+        className: "selo", textContent: "🚧 Em desenvolvimento",
+      }));
+    } else {
+      $(".btn-detalhes", card).addEventListener("click", () => abrirPatch(p.id));
+    }
     lista.append(card);
   }
 }
@@ -97,7 +104,7 @@ async function atualizarSaldo() {
 
 function abrirPatch(id) {
   const p = patches.find((x) => x.id === id);
-  if (!p) return;
+  if (!p || emDesenvolvimento(p)) return;
   history.replaceState(null, "", `#${id}`);
 
   conteudo.innerHTML = `
@@ -405,6 +412,11 @@ async function baixarGratis(p) {
 }
 
 // ---------------------------------------------------------------------------
+
+// Patches ainda sem arquivo: aparecem na lista, mas sem detalhes nem download.
+function emDesenvolvimento(p) {
+  return p.status === "em-desenvolvimento";
+}
 
 function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);

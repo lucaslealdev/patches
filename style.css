@@ -77,6 +77,8 @@ code { font-size: .85em; word-break: break-all; }
 .card h2 { margin: 0; font-size: 1.15rem; }
 .jogo { margin: 0; color: var(--suave); font-size: .9rem; }
 .resumo { margin: 4px 0 12px; flex: 1; }
+.card.em-dev { border-style: dashed; }
+.selo { align-self: flex-start; padding: 6px 12px; border: 1px solid var(--cortesia-borda); border-radius: 999px; background: var(--cortesia); font-size: .88rem; font-weight: 600; }
 
 .btn {
   display: inline-block;

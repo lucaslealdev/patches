@@ -41,5 +41,21 @@
       "crc32": "CD80DB86",
       "sha1": "47E103D8398CF5B7CBB42B95DF3A3C270691163B"
     }
+  },
+  {
+    "id": "mega-man-x2-nocx4",
+    "nome": "Mega Man X2 (noCx4)",
+    "jogo": "Mega Man X2 (SNES)",
+    "status": "em-desenvolvimento",
+    "imagem": "",
+    "resumo": "Modificação que dispensa o chip especial Cx4, permitindo rodar o jogo em flashcarts simples."
+  },
+  {
+    "id": "asterix-obelix-ntsc-ptbr",
+    "nome": "Asterix & Obelix (NTSC + PT-BR)",
+    "jogo": "Asterix & Obelix (SNES, Europa)",
+    "status": "em-desenvolvimento",
+    "imagem": "",
+    "resumo": "Versão europeia convertida para NTSC, com opção de idioma Português do Brasil."
   }
 ]
