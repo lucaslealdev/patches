@@ -43,6 +43,29 @@
     }
   },
   {
+    "id": "love-quest",
+    "nome": "Love Quest",
+    "jogo": "Love Quest (Super Famicom / SNES)",
+    "versao": "0.9-beta",
+    "imagem": "",
+    "resumo": "Tradução para Português do Brasil do inusitado RPG satírico da Tokuma Shoten.",
+    "detalhes": [
+      "Tradução dos diálogos da história, menus, itens, habilidades e sistema de batalha para Português do Brasil.",
+      "Expande a ROM original de 1,5 MB para 4 MB para acomodar novos textos e fontes acentuadas."
+    ],
+    "nota": "Versão 0.9-beta: praticamente todo o enredo e interface estão traduzidos, podendo conter pequenas revisões pendentes.",
+    "mudancas": [
+      "Tradução dos diálogos principais e personagens para Português do Brasil",
+      "Tradução completa de menus, itens, equipamentos e habilidades",
+      "Inclusão de caracteres acentuados e expansão da ROM para 4 MB"
+    ],
+    "rom": {
+      "nome": "Love Quest (Japan).sfc",
+      "crc32": "92FAD6FC",
+      "sha1": "B8CB0FB89DEC3E3DD7820E53562189EFC1875149"
+    }
+  },
+  {
     "id": "mega-man-x2-nocx4",
     "nome": "Mega Man X2 (noCx4)",
     "jogo": "Mega Man X2 (SNES)",
