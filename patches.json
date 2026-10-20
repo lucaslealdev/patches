@@ -2,6 +2,7 @@
   {
     "id": "taekwon-do",
     "nome": "Taekwon-Do",
+    "emoji": "🥋",
     "jogo": "Taekwon-Do (Super Famicom / SNES)",
     "versao": "1.0",
     "imagem": "",
@@ -23,6 +24,7 @@
   {
     "id": "super-mario-kart-nodsp",
     "nome": "Super Mario Kart (noDSP)",
+    "emoji": "🏎️",
     "jogo": "Super Mario Kart (SNES)",
     "versao": "1.0",
     "imagem": "",
@@ -45,6 +47,7 @@
   {
     "id": "love-quest",
     "nome": "Love Quest",
+    "emoji": "💘",
     "jogo": "Love Quest (Super Famicom / SNES)",
     "versao": "0.9-beta",
     "imagem": "",
@@ -68,6 +71,7 @@
   {
     "id": "asterix-obelix-ntsc-ptbr",
     "nome": "Asterix & Obelix (NTSC + PT-BR)",
+    "emoji": "🐗",
     "jogo": "Asterix & Obelix (SNES, Europa)",
     "versao": "1.0",
     "imagem": "",
@@ -90,6 +94,7 @@
   {
     "id": "mega-man-x2-nocx4",
     "nome": "Mega Man X2 (noCx4)",
+    "emoji": "🤖",
     "jogo": "Mega Man X2 (SNES)",
     "status": "em-desenvolvimento",
     "imagem": "",

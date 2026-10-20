@@ -69,7 +69,8 @@ function renderizarLista() {
     const img = $(".capa", card);
     if (p.imagem) img.src = p.imagem;
     else img.remove();
-    $(".nome", card).textContent = p.nome;
+    const emoji = p.emoji ? `${p.emoji} ` : "";
+    $(".nome", card).textContent = `${emoji}${p.nome}`;
     $(".jogo", card).textContent = p.versao ? `${p.jogo} · v${p.versao}` : p.jogo;
     $(".resumo", card).textContent = p.resumo;
     if (emDesenvolvimento(p)) {
@@ -107,8 +108,9 @@ function abrirPatch(id) {
   if (!p || emDesenvolvimento(p)) return;
   history.replaceState(null, "", `#${id}`);
 
+  const emoji = p.emoji ? `${esc(p.emoji)} ` : "";
   conteudo.innerHTML = `
-    <h2>${esc(p.nome)}</h2>
+    <h2>${emoji}${esc(p.nome)}</h2>
     <p class="jogo">${esc(p.jogo)} · v${esc(p.versao)}</p>
     ${p.imagem ? `<img class="capa-grande" src="${esc(p.imagem)}" alt="">` : ""}
     ${(p.detalhes || []).map((t) => `<p>${esc(t)}</p>`).join("")}
@@ -160,7 +162,7 @@ function mostrarEscolha(p) {
         <p>🎁 Há <strong>${saldo.downloads_gratis}</strong> download${saldo.downloads_gratis > 1 ? "s" : ""}
           cortesia disponíve${saldo.downloads_gratis > 1 ? "is" : "l"}, pago${saldo.downloads_gratis > 1 ? "s" : ""} por quem contribuiu a mais.</p>
         <div id="turnstile-widget"></div>
-        <button class="btn btn-primario" id="btn-gratis" type="button">Baixar grátis</button>
+        <button class="btn btn-primario" id="btn-gratis" type="button">🎁 Baixar grátis</button>
       </div>
       <p class="ou">ou contribua você também:</p>` : `<h3>Contribua e baixe</h3>`}
     <div class="valores" role="radiogroup" aria-label="Valor da contribuição">
@@ -174,7 +176,7 @@ function mostrarEscolha(p) {
       <label>R$ <input type="number" id="valor-livre" min="1" step="0.01" inputmode="decimal" placeholder="1,00"></label>
     </div>
     <p class="explica" id="explica"></p>
-    <button class="btn ${temCortesia ? "" : "btn-primario"}" id="btn-pix" type="button">Gerar Pix</button>
+    <button class="btn ${temCortesia ? "" : "btn-primario"}" id="btn-pix" type="button">⚡ Gerar Pix</button>
     <p class="msg" id="msg" role="alert"></p>
   `;
 
@@ -229,7 +231,7 @@ async function gerarPix(p) {
   }
   const btn = $("#btn-pix");
   btn.disabled = true;
-  btn.textContent = "Gerando Pix…";
+  btn.textContent = "⏳ Gerando Pix…";
   try {
     const pix = await api("/api/pagar", { method: "POST", body: JSON.stringify({ patch: p.id, valor_centavos: valor }) });
     const dados = { ...pix, valor };
@@ -238,7 +240,7 @@ async function gerarPix(p) {
   } catch (err) {
     msg.textContent = err.message;
     btn.disabled = false;
-    btn.textContent = "Gerar Pix";
+    btn.textContent = "⚡ Gerar Pix";
   }
 }
 
@@ -251,17 +253,20 @@ function mostrarPix(p, pix) {
     <label class="copia-cola">Pix copia e cola
       <textarea readonly rows="3">${esc(pix.qr_code || "")}</textarea>
     </label>
-    <button class="btn" id="btn-copiar" type="button">Copiar código</button>
+    <button class="btn" id="btn-copiar" type="button">📋 Copiar código</button>
     <p class="aguardando"><span class="spinner" aria-hidden="true"></span> Aguardando pagamento… <span id="contagem"></span></p>
     ${pix.teste ? `<button class="btn btn-teste" id="btn-simular" type="button">⚙️ Simular pagamento (modo teste)</button>` : ""}
-    <button class="btn-link" id="btn-cancelar" type="button">Escolher outro valor</button>
+    <button class="btn-link" id="btn-cancelar" type="button">↩️ Escolher outro valor</button>
     <p class="msg" id="msg" role="alert"></p>
   `;
 
   $("#btn-copiar").addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(pix.qr_code);
-      $("#btn-copiar").textContent = "Copiado!";
+      $("#btn-copiar").textContent = "✅ Copiado!";
+      setTimeout(() => {
+        if ($("#btn-copiar")) $("#btn-copiar").textContent = "📋 Copiar código";
+      }, 2500);
     } catch {
       $("textarea", box).select();
     }
@@ -317,7 +322,7 @@ function mostrarPago(p, url, valor) {
       <h3>✅ Pagamento confirmado. Obrigado!</h3>
       ${extra > 0 ? `<p>Seus ${reais(extra)} a mais foram para o saldo de cortesia. Valeu demais! 💛</p>` : ""}
       <p>O download deve começar sozinho. Se não começar:</p>
-      <a class="btn btn-primario" href="${esc(url)}">Baixar ${esc(p.id)}.bps</a>
+      <a class="btn btn-primario" href="${esc(url)}">📥 Baixar ${esc(p.id)}.bps</a>
     </div>
   `;
   location.href = url;
@@ -329,8 +334,8 @@ function mostrarJaPago(p, anterior) {
   box.innerHTML = `
     <div class="sucesso">
       <p>Você já contribuiu por este patch neste navegador. 💛</p>
-      <button class="btn btn-primario" id="btn-rebaixar" type="button">Baixar novamente</button>
-      <button class="btn-link" id="btn-novo" type="button">Contribuir de novo</button>
+      <button class="btn btn-primario" id="btn-rebaixar" type="button">🔄 Baixar novamente</button>
+      <button class="btn-link" id="btn-novo" type="button">💛 Contribuir de novo</button>
       <p class="msg" id="msg" role="alert"></p>
     </div>
   `;
@@ -389,7 +394,7 @@ async function baixarGratis(p) {
     }
   }
   btn.disabled = true;
-  btn.textContent = "Liberando…";
+  btn.textContent = "⏳ Liberando…";
   try {
     const r = await api("/api/gratis", { method: "POST", body: JSON.stringify({ patch: p.id, turnstile: token }) });
     const box = $("#checkout");
@@ -398,14 +403,14 @@ async function baixarGratis(p) {
       <div class="sucesso">
         <h3>🎁 Download cortesia liberado!</h3>
         <p>Alguém pagou a mais para que você pudesse baixar. Se curtir o patch, considere contribuir para o próximo. 💛</p>
-        <a class="btn btn-primario" href="${esc(r.download_url)}">Baixar ${esc(p.id)}.bps</a>
+        <a class="btn btn-primario" href="${esc(r.download_url)}">📥 Baixar ${esc(p.id)}.bps</a>
       </div>
     `;
     location.href = r.download_url;
   } catch (err) {
     msg.textContent = err.message;
     btn.disabled = false;
-    btn.textContent = "Baixar grátis";
+    btn.textContent = "🎁 Baixar grátis";
     if (turnstileId !== null) window.turnstile?.reset(turnstileId);
   }
   atualizarSaldo();
