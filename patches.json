@@ -66,19 +66,33 @@
     }
   },
   {
+    "id": "asterix-obelix-ntsc-ptbr",
+    "nome": "Asterix & Obelix (NTSC + PT-BR)",
+    "jogo": "Asterix & Obelix (SNES, Europa)",
+    "versao": "1.0",
+    "imagem": "",
+    "resumo": "Conversão inédita para NTSC (60 Hz) e tradução para Português do Brasil.",
+    "detalhes": [
+      "Conversão inédita do clássico Asterix & Obelix para NTSC (60 Hz). Originalmente lançado apenas na Europa (PAL 50 Hz), o jogo nunca teve versão oficial NTSC e esta conversão é um feito inédito.",
+      "Adiciona o idioma Português do Brasil, com menus e diálogos traduzidos, rodando em velocidade normal e taxa de quadros correta para consoles NTSC."
+    ],
+    "mudancas": [
+      "Conversão completa e inédita de PAL (50 Hz) para NTSC (60 Hz)",
+      "Inclusão do idioma Português do Brasil",
+      "Ajustes de temporização e compatibilidade de hardware NTSC"
+    ],
+    "rom": {
+      "nome": "Asterix & Obelix (E).smc",
+      "crc32": "83AF6152",
+      "sha1": "BFEA708EE5E733640D1AE1A5F72CA1F0BDA95DED"
+    }
+  },
+  {
     "id": "mega-man-x2-nocx4",
     "nome": "Mega Man X2 (noCx4)",
     "jogo": "Mega Man X2 (SNES)",
     "status": "em-desenvolvimento",
     "imagem": "",
     "resumo": "Modificação que dispensa o chip especial Cx4, permitindo rodar o jogo em flashcarts simples."
-  },
-  {
-    "id": "asterix-obelix-ntsc-ptbr",
-    "nome": "Asterix & Obelix (NTSC + PT-BR)",
-    "jogo": "Asterix & Obelix (SNES, Europa)",
-    "status": "em-desenvolvimento",
-    "imagem": "",
-    "resumo": "Versão europeia convertida para NTSC, com opção de idioma Português do Brasil."
   }
 ]
