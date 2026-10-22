@@ -93,11 +93,26 @@
   },
   {
     "id": "mega-man-x2-nocx4",
-    "nome": "Mega Man X2 (noCx4)",
+    "nome": "Mega Man X2 (noCx4 + PT-BR)",
     "emoji": "🤖",
     "jogo": "Mega Man X2 (SNES)",
-    "status": "em-desenvolvimento",
+    "versao": "1.0",
     "imagem": "",
-    "resumo": "Modificação que dispensa o chip especial Cx4, permitindo rodar o jogo em flashcarts simples."
+    "resumo": "Remove a dependência do chip Cx4 e adiciona o idioma Português do Brasil.",
+    "detalhes": [
+      "Todo o trabalho do coprocessador Cx4 (sprites, matemática, efeitos de arame, rotação e escala) foi reimplementado na CPU do SNES, permitindo rodar Mega Man X2 em flashcarts e repros sem suporte ao chip.",
+      "Inclui seletor de idioma no menu inicial (English / Português), com abertura, menus, Stage Select, diálogos, tela de senha e créditos traduzidos. A ROM é expandida para 4 MB."
+    ],
+    "mudancas": [
+      "Remoção da dependência do chip Cx4",
+      "Seletor de idioma English / Português no menu inicial",
+      "Tradução de textos, menus, diálogos e créditos para Português do Brasil",
+      "Expansão da ROM para 4 MB"
+    ],
+    "rom": {
+      "nome": "Mega Man X 2 (U) [!].smc",
+      "crc32": "947B0355",
+      "sha1": "637079014421563283CDED6AEAA0604597B2E33C"
+    }
   }
 ]
