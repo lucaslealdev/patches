@@ -1,97 +1,5 @@
 [
   {
-    "id": "taekwon-do",
-    "nome": "Taekwon-Do",
-    "emoji": "🥋",
-    "jogo": "Taekwon-Do (Super Famicom / SNES)",
-    "versao": "1.0",
-    "imagem": "",
-    "resumo": "Tradução para Português do Brasil e Inglês do jogo de luta Taekwon-Do.",
-    "detalhes": [
-      "Tradução dos menus, telas de seleção, diálogos e golpes.",
-      "Expande a ROM original para 2 MB para acomodar novos textos e fontes acentuadas."
-    ],
-    "mudancas": [
-      "Tradução completa dos textos e menus para Português do Brasil / Inglês",
-      "Adaptação de fontes e gráficos originais"
-    ],
-    "rom": {
-      "nome": "Taekwon-Do (J).smc",
-      "crc32": "93F29DDE",
-      "sha1": "DC61CB9B82EB58A9B09CB93A10B6731EAA4CD053"
-    }
-  },
-  {
-    "id": "super-mario-kart-nodsp",
-    "nome": "Super Mario Kart (noDSP)",
-    "emoji": "🏎️",
-    "jogo": "Super Mario Kart (SNES)",
-    "versao": "1.0",
-    "imagem": "",
-    "resumo": "Modificação que remove a dependência do chip DSP-1.",
-    "detalhes": [
-      "Remove a necessidade do coprocessador DSP-1 físico.",
-      "Permite rodar Super Mario Kart em flashcarts e repros sem suporte ao chip auxiliar."
-    ],
-    "nota": "Limitações conhecidas desta versão: compatível apenas com o modo single player (1 jogador), e a velocidade do jogo pode ficar reduzida quando há muitos sprites simultâneos na tela.",
-    "mudancas": [
-      "Remoção da dependência do chip DSP-1",
-      "Expansão da ROM para compatibilidade com o patch"
-    ],
-    "rom": {
-      "nome": "Super Mario Kart (USA).sfc",
-      "crc32": "CD80DB86",
-      "sha1": "47E103D8398CF5B7CBB42B95DF3A3C270691163B"
-    }
-  },
-  {
-    "id": "love-quest",
-    "nome": "Love Quest",
-    "emoji": "💘",
-    "jogo": "Love Quest (Super Famicom / SNES)",
-    "versao": "0.9-beta",
-    "imagem": "",
-    "resumo": "Tradução para Português do Brasil do inusitado RPG satírico da Tokuma Shoten.",
-    "detalhes": [
-      "Tradução dos diálogos da história, menus, itens, habilidades e sistema de batalha para Português do Brasil.",
-      "Expande a ROM original de 1,5 MB para 4 MB para acomodar novos textos e fontes acentuadas."
-    ],
-    "nota": "Versão 0.9-beta: praticamente todo o enredo e interface estão traduzidos, podendo conter pequenas revisões pendentes.",
-    "mudancas": [
-      "Tradução dos diálogos principais e personagens para Português do Brasil",
-      "Tradução completa de menus, itens, equipamentos e habilidades",
-      "Inclusão de caracteres acentuados e expansão da ROM para 4 MB"
-    ],
-    "rom": {
-      "nome": "Love Quest (Japan).sfc",
-      "crc32": "92FAD6FC",
-      "sha1": "B8CB0FB89DEC3E3DD7820E53562189EFC1875149"
-    }
-  },
-  {
-    "id": "asterix-obelix-ntsc-ptbr",
-    "nome": "Asterix & Obelix (NTSC + PT-BR)",
-    "emoji": "🐗",
-    "jogo": "Asterix & Obelix (SNES, Europa)",
-    "versao": "1.0",
-    "imagem": "",
-    "resumo": "Conversão inédita para NTSC (60 Hz) e tradução para Português do Brasil.",
-    "detalhes": [
-      "Conversão inédita do clássico Asterix & Obelix para NTSC (60 Hz). Originalmente lançado apenas na Europa (PAL 50 Hz), o jogo nunca teve versão oficial NTSC e esta conversão é um feito inédito.",
-      "Adiciona o idioma Português do Brasil, com menus e diálogos traduzidos, rodando em velocidade normal e taxa de quadros correta para consoles NTSC."
-    ],
-    "mudancas": [
-      "Conversão completa e inédita de PAL (50 Hz) para NTSC (60 Hz)",
-      "Inclusão do idioma Português do Brasil",
-      "Ajustes de temporização e compatibilidade de hardware NTSC"
-    ],
-    "rom": {
-      "nome": "Asterix & Obelix (E).smc",
-      "crc32": "83AF6152",
-      "sha1": "BFEA708EE5E733640D1AE1A5F72CA1F0BDA95DED"
-    }
-  },
-  {
     "id": "mega-man-x2-nocx4-v1-1",
     "nome": "Mega Man X2 (noCx4 + PT-BR)",
     "emoji": "🤖",
@@ -127,5 +35,97 @@
     "status": "em-desenvolvimento",
     "imagem": "",
     "resumo": "Modificação que dispensa o chip especial Cx4, permitindo rodar o jogo em flashcarts simples."
+  },
+  {
+    "id": "asterix-obelix-ntsc-ptbr",
+    "nome": "Asterix & Obelix (NTSC + PT-BR)",
+    "emoji": "🐗",
+    "jogo": "Asterix & Obelix (SNES, Europa)",
+    "versao": "1.0",
+    "imagem": "",
+    "resumo": "Conversão inédita para NTSC (60 Hz) e tradução para Português do Brasil.",
+    "detalhes": [
+      "Conversão inédita do clássico Asterix & Obelix para NTSC (60 Hz). Originalmente lançado apenas na Europa (PAL 50 Hz), o jogo nunca teve versão oficial NTSC e esta conversão é um feito inédito.",
+      "Adiciona o idioma Português do Brasil, com menus e diálogos traduzidos, rodando em velocidade normal e taxa de quadros correta para consoles NTSC."
+    ],
+    "mudancas": [
+      "Conversão completa e inédita de PAL (50 Hz) para NTSC (60 Hz)",
+      "Inclusão do idioma Português do Brasil",
+      "Ajustes de temporização e compatibilidade de hardware NTSC"
+    ],
+    "rom": {
+      "nome": "Asterix & Obelix (E).smc",
+      "crc32": "83AF6152",
+      "sha1": "BFEA708EE5E733640D1AE1A5F72CA1F0BDA95DED"
+    }
+  },
+  {
+    "id": "super-mario-kart-nodsp",
+    "nome": "Super Mario Kart (noDSP)",
+    "emoji": "🏎️",
+    "jogo": "Super Mario Kart (SNES)",
+    "versao": "1.0",
+    "imagem": "",
+    "resumo": "Modificação que remove a dependência do chip DSP-1.",
+    "detalhes": [
+      "Remove a necessidade do coprocessador DSP-1 físico.",
+      "Permite rodar Super Mario Kart em flashcarts e repros sem suporte ao chip auxiliar."
+    ],
+    "nota": "Limitações conhecidas desta versão: compatível apenas com o modo single player (1 jogador), e a velocidade do jogo pode ficar reduzida quando há muitos sprites simultâneos na tela.",
+    "mudancas": [
+      "Remoção da dependência do chip DSP-1",
+      "Expansão da ROM para compatibilidade com o patch"
+    ],
+    "rom": {
+      "nome": "Super Mario Kart (USA).sfc",
+      "crc32": "CD80DB86",
+      "sha1": "47E103D8398CF5B7CBB42B95DF3A3C270691163B"
+    }
+  },
+  {
+    "id": "taekwon-do",
+    "nome": "Taekwon-Do",
+    "emoji": "🥋",
+    "jogo": "Taekwon-Do (Super Famicom / SNES)",
+    "versao": "1.0",
+    "imagem": "",
+    "resumo": "Tradução para Português do Brasil e Inglês do jogo de luta Taekwon-Do.",
+    "detalhes": [
+      "Tradução dos menus, telas de seleção, diálogos e golpes.",
+      "Expande a ROM original para 2 MB para acomodar novos textos e fontes acentuadas."
+    ],
+    "mudancas": [
+      "Tradução completa dos textos e menus para Português do Brasil / Inglês",
+      "Adaptação de fontes e gráficos originais"
+    ],
+    "rom": {
+      "nome": "Taekwon-Do (J).smc",
+      "crc32": "93F29DDE",
+      "sha1": "DC61CB9B82EB58A9B09CB93A10B6731EAA4CD053"
+    }
+  },
+  {
+    "id": "love-quest",
+    "nome": "Love Quest",
+    "emoji": "💘",
+    "jogo": "Love Quest (Super Famicom / SNES)",
+    "versao": "0.9-beta",
+    "imagem": "",
+    "resumo": "Tradução para Português do Brasil do inusitado RPG satírico da Tokuma Shoten.",
+    "detalhes": [
+      "Tradução dos diálogos da história, menus, itens, habilidades e sistema de batalha para Português do Brasil.",
+      "Expande a ROM original de 1,5 MB para 4 MB para acomodar novos textos e fontes acentuadas."
+    ],
+    "nota": "Versão 0.9-beta: praticamente todo o enredo e interface estão traduzidos, podendo conter pequenas revisões pendentes.",
+    "mudancas": [
+      "Tradução dos diálogos principais e personagens para Português do Brasil",
+      "Tradução completa de menus, itens, equipamentos e habilidades",
+      "Inclusão de caracteres acentuados e expansão da ROM para 4 MB"
+    ],
+    "rom": {
+      "nome": "Love Quest (Japan).sfc",
+      "crc32": "92FAD6FC",
+      "sha1": "B8CB0FB89DEC3E3DD7820E53562189EFC1875149"
+    }
   }
 ]
