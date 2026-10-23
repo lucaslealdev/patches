@@ -118,5 +118,14 @@
       "crc32": "947B0355",
       "sha1": "637079014421563283CDED6AEAA0604597B2E33C"
     }
+  },
+  {
+    "id": "mega-man-x3-nocx4",
+    "nome": "Mega Man X3 (noCx4)",
+    "emoji": "🤖",
+    "jogo": "Mega Man X3 (SNES)",
+    "status": "em-desenvolvimento",
+    "imagem": "",
+    "resumo": "Modificação que dispensa o chip especial Cx4, permitindo rodar o jogo em flashcarts simples."
   }
 ]
