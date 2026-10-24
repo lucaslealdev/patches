@@ -1,22 +1,25 @@
 [
   {
-    "id": "mega-man-x2-nocx4-v1-1",
+    "id": "mega-man-x2-nocx4-v1-2",
     "nome": "Mega Man X2 (noCx4 + PT-BR)",
     "emoji": "🤖",
     "jogo": "Mega Man X2 (SNES)",
-    "versao": "1.1",
+    "versao": "1.2",
     "imagem": "",
     "resumo": "Remove a dependência do chip Cx4 e adiciona o idioma Português do Brasil.",
     "detalhes": [
       "Todo o trabalho do coprocessador Cx4 (sprites, matemática, efeitos de arame, rotação e escala) foi reimplementado na CPU do SNES, permitindo rodar Mega Man X2 em flashcarts e repros sem suporte ao chip.",
       "Inclui seletor de idioma no menu inicial (English / Português), com abertura, menus, Stage Select, diálogos, tela de senha e créditos traduzidos. A ROM é expandida para 4 MB.",
-      "Versão 1.1: corrige três pontos em que a reimplementação do Cx4 se comportava diferente do chip original — o cristal da fase do Crystal Snail, o cursor do Item Tracer e dois trechos do código dos X-Hunters."
+      "Versão 1.2: remove os ataques do peixe gigante (que causavam muito travamento), melhora a lentidão na luta contra o Morph Moth e inclui uma função secreta de desenvolvimento. Também reúne as correções da 1.1 na reimplementação do Cx4: o cristal da fase do Crystal Snail, o cursor do Item Tracer e dois trechos do código dos X-Hunters."
     ],
     "mudancas": [
       "Remoção da dependência do chip Cx4",
       "Seletor de idioma English / Português no menu inicial",
       "Tradução de textos, menus, diálogos e créditos para Português do Brasil",
       "Expansão da ROM para 4 MB",
+      "v1.2 — Peixe gigante: os ataques foram removidos, pois causavam muito travamento.",
+      "v1.2 — Morph Moth: melhorada a lentidão durante a luta.",
+      "v1.2 — Inclui uma função secreta de desenvolvimento.",
       "v1.1 — Fase do Crystal Snail: o primeiro cristal verde, que devia escorregar e cair sobre o X, saía voando para a direita. Agora cai normalmente.",
       "v1.1 — Item Tracer (peça do capacete): o cursor não encontrava as passagens e os itens escondidos e ia sempre para a direita. Agora vai até o alvo como na ROM original.",
       "v1.1 — X-Hunters: dois trechos do código dos X-Hunters também usavam o chip sem a correção. Foram corrigidos por precaução, antes de causarem problemas."
