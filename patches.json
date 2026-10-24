@@ -32,9 +32,22 @@
     "nome": "Mega Man X3 (noCx4)",
     "emoji": "🤖",
     "jogo": "Mega Man X3 (SNES)",
-    "status": "em-desenvolvimento",
+    "versao": "1.0",
     "imagem": "",
-    "resumo": "Modificação que dispensa o chip especial Cx4, permitindo rodar o jogo em flashcarts simples."
+    "resumo": "Remove a dependência do chip Cx4, permitindo rodar Mega Man X3 em flashcarts e repros sem suporte ao chip.",
+    "detalhes": [
+      "Todo o trabalho do coprocessador Cx4 (sprites, matemática, efeitos de arame, rotação e escala) foi reimplementado na CPU do SNES, permitindo rodar Mega Man X3 em flashcarts e repros sem suporte ao chip.",
+      "A ROM é expandida para 4 MB para acomodar o código adicional."
+    ],
+    "mudancas": [
+      "Remoção da dependência do chip Cx4",
+      "Expansão da ROM para 4 MB"
+    ],
+    "rom": {
+      "nome": "Mega Man X 3 (U).smc",
+      "crc32": "FA0FE671",
+      "sha1": "B226F7EC59283B05C1E276E2F433893F45027CAC"
+    }
   },
   {
     "id": "asterix-obelix-ntsc-ptbr",
