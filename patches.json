@@ -1,22 +1,25 @@
 [
   {
-    "id": "mega-man-x2-nocx4-v1-3",
+    "id": "mega-man-x2-nocx4-v1-4",
     "nome": "Mega Man X2 (noCx4 + PT-BR)",
     "emoji": "🤖",
     "jogo": "Mega Man X2 (SNES)",
-    "versao": "1.3",
+    "versao": "1.4",
     "imagem": "",
     "resumo": "Remove a dependência do chip Cx4 e adiciona o idioma Português do Brasil.",
     "detalhes": [
       "Todo o trabalho do coprocessador Cx4 (sprites, matemática, efeitos de arame, rotação e escala) foi reimplementado na CPU do SNES, permitindo rodar Mega Man X2 em flashcarts e repros sem suporte ao chip.",
       "Inclui seletor de idioma no menu inicial (English / Português), com abertura, menus, Stage Select, diálogos, tela de senha e créditos traduzidos. A ROM é expandida para 4 MB.",
-      "Versão 1.3: melhora a velocidade do jogo, corrige bugs em diversos chefes e corrige um bug no poder Giga Crush que afetava o menu secreto. Também mantém as mudanças da 1.2 (remoção dos ataques do peixe gigante, melhora da lentidão no Morph Moth e função secreta de desenvolvimento) e as correções da 1.1 na reimplementação do Cx4: o cristal da fase do Crystal Snail, o cursor do Item Tracer e dois trechos do código dos X-Hunters."
+      "Versão 1.4: reduz glitches de sprites do X, corrige o tiro do último level do Serges e reduz ligeiramente a lentidão. Também mantém as mudanças da 1.3 (melhora de velocidade, correções em diversos chefes e correção do Giga Crush no menu secreto), da 1.2 (remoção dos ataques do peixe gigante, melhora da lentidão no Morph Moth e função secreta de desenvolvimento) e da 1.1 na reimplementação do Cx4: o cristal da fase do Crystal Snail, o cursor do Item Tracer e dois trechos do código dos X-Hunters."
     ],
     "mudancas": [
       "Remoção da dependência do chip Cx4",
       "Seletor de idioma English / Português no menu inicial",
       "Tradução de textos, menus, diálogos e créditos para Português do Brasil",
       "Expansão da ROM para 4 MB",
+      "v1.4 — Redução de glitches de sprites do X.",
+      "v1.4 — Correção do tiro do último level do Serges.",
+      "v1.4 — Ligeira redução da lentidão.",
       "v1.3 — Melhoria de velocidade do jogo.",
       "v1.3 — Correção de bugs em diversos chefes.",
       "v1.3 — Correção de bug no poder Giga Crush que afetava o menu secreto.",
