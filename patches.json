@@ -38,19 +38,22 @@
   },
   {
     "id": "mega-man-x3-nocx4",
-    "nome": "Mega Man X3 (noCx4)",
+    "nome": "Mega Man X3 (noCx4 + PT-BR)",
     "emoji": "🤖",
     "jogo": "Mega Man X3 (SNES)",
     "versao": "1.0",
     "imagem": "",
-    "resumo": "Remove a dependência do chip Cx4, permitindo rodar Mega Man X3 em flashcarts e repros sem suporte ao chip.",
+    "resumo": "Remove a dependência do chip Cx4 e adiciona o idioma Português do Brasil.",
     "detalhes": [
       "Todo o trabalho do coprocessador Cx4 (sprites, matemática, efeitos de arame, rotação e escala) foi reimplementado na CPU do SNES, permitindo rodar Mega Man X3 em flashcarts e repros sem suporte ao chip.",
       "A ROM é expandida para 4 MB para acomodar o código adicional."
     ],
     "mudancas": [
       "Remoção da dependência do chip Cx4",
-      "Expansão da ROM para 4 MB"
+      "Seletor de idioma English / Português no menu inicial",
+      "Tradução de textos, menus, diálogos e créditos para Português do Brasil",
+      "Expansão da ROM para 4 MB",
+      "Inclui uma função secreta de desenvolvimento"
     ],
     "rom": {
       "nome": "Mega Man X 3 (U).smc",
