@@ -12,10 +12,19 @@
     <h1>Patches</h1>
     <p class="sub">Patches BPS para jogos clássicos. Cada download custa <strong>R$ 1</strong> via Pix.
       Quem contribui a mais deixa downloads gratuitos para os próximos.</p>
-    <div id="saldo" class="saldo" hidden></div>
   </header>
 
   <main>
+    <section id="campanhas-sec" class="campanhas-sec" hidden>
+      <div class="campanhas-topo">
+        <h2>💛 Financie o próximo patch</h2>
+        <button class="btn-link" id="btn-como-funciona" type="button">Como funciona?</button>
+      </div>
+      <div id="campanhas" class="lista"></div>
+    </section>
+
+    <h2 class="titulo-sec">🎮 Patches para baixar</h2>
+    <div id="saldo" class="saldo" hidden></div>
     <section id="lista" class="lista" aria-live="polite">
       <p class="carregando">Carregando patches…</p>
     </section>
@@ -39,6 +48,19 @@
         <p class="jogo"></p>
         <p class="resumo"></p>
         <button class="btn btn-detalhes" type="button">🎮 Detalhes e download</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="tpl-campanha">
+    <article class="card">
+      <img class="capa" alt="" loading="lazy">
+      <div class="card-corpo">
+        <h2 class="nome"></h2>
+        <p class="jogo"></p>
+        <p class="resumo"></p>
+        <div class="progresso-slot"></div>
+        <button class="btn btn-apoiar" type="button">💛 Apoiar</button>
       </div>
     </article>
   </template>

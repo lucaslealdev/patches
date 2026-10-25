@@ -1,0 +1,29 @@
+[
+  {
+    "id": "mega-man-zero-project",
+    "nome": "Mega Man Zero Project (sem chip Cx4)",
+    "emoji": "🤖",
+    "jogo": "Mega Man X3 (SNES), base do Zero Project",
+    "imagem": "",
+    "resumo": "Remover a necessidade do chip Cx4 para o Zero Project rodar em consoles e emuladores sem suporte ao chip.",
+    "detalhes": [
+      "O Zero Project é baseado em Mega Man X3, que depende do chip Cx4 (cálculos de wireframe e rotação de sprites). O objetivo é substituir o trabalho do chip por código na CPU do SNES, como já foi feito no patch de Mega Man X3.",
+      "O resultado é um patch BPS que roda sem o chip, aplicado sobre a ROM do Zero Project."
+    ],
+    "risco": "Se o Zero Project usar o Cx4 de forma diferente do X3 original, a conversão pode ficar lenta demais na CPU ou sem espaço na ROM.",
+    "patch": ""
+  },
+  {
+    "id": "lucky-luke",
+    "nome": "Lucky Luke (versão NTSC)",
+    "emoji": "🤠",
+    "jogo": "Lucky Luke (SNES, Europa)",
+    "imagem": "",
+    "resumo": "Fazer o jogo europeu (PAL) funcionar em consoles NTSC.",
+    "detalhes": [
+      "Lucky Luke foi lançado só na Europa e não é compatível com consoles NTSC. O patch vai adaptar o jogo para rodar corretamente em NTSC."
+    ],
+    "risco": "Adaptar o jogo de PAL para NTSC pode exigir ajustes de velocidade e de áudio, e só dá para saber o tamanho do trabalho depois de começar.",
+    "patch": ""
+  }
+]

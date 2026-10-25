@@ -8,6 +8,8 @@ const TURNSTILE_SITEKEY = location.hostname === "localhost" || location.hostname
   ? "1x00000000000000000000AA"
   : "0x4AAAAAAFBQHok785riSpYR";
 const VALORES_SUGERIDOS = [100, 200, 500, 1000]; // em centavos
+const VALORES_DOACAO = [500, 1000, 2000, 5000]; // em centavos
+const DOACAO_MINIMO = 100; // espelha DOACAO_MINIMO_CENTAVOS do Worker
 // ---------------------------------------------------------------------------
 
 const $ = (sel, raiz = document) => raiz.querySelector(sel);
@@ -15,6 +17,8 @@ const modal = $("#modal");
 const conteudo = $("#modal-conteudo");
 
 let patches = [];
+let campanhas = []; // textos do JSON + números da API, juntos pelo id
+let campanhaAberta = null; // id da campanha cuja modal está aberta (para voltar do "Como funciona")
 let saldo = { saldo_centavos: 0, downloads_gratis: 0, preco_centavos: 100 };
 let polling = null;
 
@@ -22,14 +26,14 @@ const reais = (c) => (c / 100).toLocaleString("pt-BR", { style: "currency", curr
 
 // Pequeno armazenamento local para retomar um Pix pendente ou baixar de novo.
 const guardado = {
-  ler(patch) {
-    try { return JSON.parse(localStorage.getItem(`pix:${patch}`)); } catch { return null; }
+  ler(chave) {
+    try { return JSON.parse(localStorage.getItem(chave)); } catch { return null; }
   },
-  gravar(patch, dados) {
-    try { localStorage.setItem(`pix:${patch}`, JSON.stringify(dados)); } catch {}
+  gravar(chave, dados) {
+    try { localStorage.setItem(chave, JSON.stringify(dados)); } catch {}
   },
-  apagar(patch) {
-    try { localStorage.removeItem(`pix:${patch}`); } catch {}
+  apagar(chave) {
+    try { localStorage.removeItem(chave); } catch {}
   },
 };
 
@@ -54,10 +58,15 @@ async function iniciar() {
     return;
   }
   renderizarLista();
+  // Isolado: se as campanhas falharem, a lista de patches continua funcionando.
+  const carregou = carregarCampanhas();
   await atualizarSaldo();
+  await carregou;
 
   const hash = location.hash.slice(1);
   if (patches.some((p) => p.id === hash)) abrirPatch(hash);
+  else if (hash === "como-funciona") abrirComoFunciona();
+  else if (hash.startsWith("campanha-")) abrirCampanha(hash.slice("campanha-".length));
 }
 
 function renderizarLista() {
@@ -135,6 +144,7 @@ function abrirPatch(id) {
 
 modal.addEventListener("close", () => {
   pararPolling();
+  campanhaAberta = null;
   history.replaceState(null, "", location.pathname);
 });
 modal.addEventListener("click", (e) => {
@@ -142,11 +152,11 @@ modal.addEventListener("click", (e) => {
 });
 
 function mostrarCheckout(p) {
-  const anterior = guardado.ler(p.id);
+  const anterior = guardado.ler(`pix:${p.id}`);
   if (anterior?.id) {
     if (anterior.pago) return mostrarJaPago(p, anterior);
-    if (anterior.expira_em > Date.now()) return mostrarPix(p, anterior);
-    guardado.apagar(p.id);
+    if (anterior.expira_em > Date.now()) return mostrarPix(alvoPatch(p), anterior);
+    guardado.apagar(`pix:${p.id}`);
   }
   mostrarEscolha(p);
 }
@@ -235,8 +245,8 @@ async function gerarPix(p) {
   try {
     const pix = await api("/api/pagar", { method: "POST", body: JSON.stringify({ patch: p.id, valor_centavos: valor }) });
     const dados = { ...pix, valor };
-    guardado.gravar(p.id, dados);
-    mostrarPix(p, dados);
+    guardado.gravar(`pix:${p.id}`, dados);
+    mostrarPix(alvoPatch(p), dados);
   } catch (err) {
     msg.textContent = err.message;
     btn.disabled = false;
@@ -244,7 +254,20 @@ async function gerarPix(p) {
   }
 }
 
-function mostrarPix(p, pix) {
+// alvo = { chave, voltar(), aprovado(st) }: o que muda entre pagar um patch e doar a uma campanha.
+function alvoPatch(p) {
+  return {
+    chave: `pix:${p.id}`,
+    voltar: () => mostrarEscolha(p),
+    aprovado(st, pix) {
+      guardado.gravar(`pix:${p.id}`, { id: pix.id, pago: true });
+      mostrarPago(p, st.download_url, pix.valor);
+      atualizarSaldo();
+    },
+  };
+}
+
+function mostrarPix(alvo, pix) {
   const box = $("#checkout");
   box.dataset.estado = "pix";
   box.innerHTML = `
@@ -273,8 +296,8 @@ function mostrarPix(p, pix) {
   });
   $("#btn-cancelar").addEventListener("click", () => {
     pararPolling();
-    guardado.apagar(p.id);
-    mostrarEscolha(p);
+    guardado.apagar(alvo.chave);
+    alvo.voltar();
   });
   $("#btn-simular")?.addEventListener("click", () => api(`/api/teste/aprovar/${pix.id}`, { method: "POST" }));
 
@@ -291,13 +314,11 @@ function mostrarPix(p, pix) {
       const st = await api(`/api/pagamento/${pix.id}`);
       if (st.status === "approved") {
         pararPolling();
-        guardado.gravar(p.id, { id: pix.id, pago: true });
-        mostrarPago(p, st.download_url, pix.valor);
-        atualizarSaldo();
+        alvo.aprovado(st, pix);
       } else if (st.status !== "pending") {
         pararPolling();
-        guardado.apagar(p.id);
-        mostrarEscolha(p);
+        guardado.apagar(alvo.chave);
+        alvo.voltar();
         $("#msg").textContent = "O Pix expirou ou foi cancelado. Gere um novo.";
       }
     } catch {
@@ -349,7 +370,7 @@ function mostrarJaPago(p, anterior) {
     }
   });
   $("#btn-novo").addEventListener("click", () => {
-    guardado.apagar(p.id);
+    guardado.apagar(`pix:${p.id}`);
     mostrarEscolha(p);
   });
 }
@@ -415,6 +436,241 @@ async function baixarGratis(p) {
   }
   atualizarSaldo();
 }
+
+// ---------------------------------------------------------------------------
+// Campanhas (financiamento coletivo)
+
+async function carregarCampanhas() {
+  try {
+    const [textos, estado] = await Promise.all([
+      fetch("campanhas.json", { cache: "no-cache" }).then((r) => r.json()),
+      api("/api/campanhas"),
+    ]);
+    const porId = new Map(estado.campanhas.map((c) => [c.id, c]));
+    campanhas = textos.filter((t) => porId.has(t.id)).map((t) => ({ ...t, ...porId.get(t.id) }));
+  } catch {
+    campanhas = [];
+  }
+  renderizarCampanhas();
+}
+
+function barraProgresso(c) {
+  const pct = Math.floor((c.arrecadado_centavos / c.meta_centavos) * 100);
+  const falta = c.situacao === "arrecadando" ? ` · Faltam ${reais(Math.max(0, c.meta_centavos - c.arrecadado_centavos))}` : "";
+  return `
+    <div class="progresso" role="progressbar" aria-label="Arrecadação"
+         aria-valuemin="0" aria-valuemax="${c.meta_centavos}" aria-valuenow="${c.arrecadado_centavos}">
+      <div class="progresso-barra" style="width:${Math.min(100, pct)}%"></div>
+    </div>
+    <p class="progresso-texto"><strong>${reais(c.arrecadado_centavos)}</strong> de ${reais(c.meta_centavos)}
+      (${pct}%)${falta}</p>`;
+}
+
+const SELOS_CAMPANHA = {
+  financiada: "✅ Meta atingida! Trabalho começando",
+  "em-producao": "🛠️ Em produção",
+  lancada: "🎉 Lançado!",
+  inviavel: "↪️ Inviável: valor convertido em downloads cortesia",
+};
+
+function renderizarCampanhas() {
+  const lista = $("#campanhas");
+  lista.textContent = "";
+  const tpl = $("#tpl-campanha");
+  for (const c of campanhas) {
+    const card = tpl.content.cloneNode(true);
+    const img = $(".capa", card);
+    if (c.imagem) img.src = c.imagem;
+    else img.remove();
+    const emoji = c.emoji ? `${c.emoji} ` : "";
+    $(".nome", card).textContent = `${emoji}${c.nome}`;
+    $(".jogo", card).textContent = c.jogo;
+    $(".resumo", card).textContent = c.resumo;
+    $(".progresso-slot", card).innerHTML = barraProgresso(c);
+
+    const btn = $(".btn-apoiar", card);
+    if (c.situacao === "arrecadando") {
+      btn.addEventListener("click", () => abrirCampanha(c.id));
+    } else if (c.situacao === "lancada" && c.patch) {
+      btn.textContent = "🎮 Ver patch";
+      btn.addEventListener("click", () => abrirPatch(c.patch));
+    } else {
+      btn.remove();
+    }
+    if (SELOS_CAMPANHA[c.situacao]) {
+      const selo = Object.assign(document.createElement("span"), { className: "selo", textContent: SELOS_CAMPANHA[c.situacao] });
+      $(".card-corpo", card).append(selo);
+    }
+    if (c.situacao !== "lancada") {
+      $(".card", card).classList.add("clicavel");
+      $(".card", card).addEventListener("click", (e) => {
+        if (!e.target.closest("button")) abrirCampanha(c.id);
+      });
+    }
+    lista.append(card);
+  }
+  $("#campanhas-sec").hidden = campanhas.length === 0;
+}
+
+function abrirCampanha(id) {
+  const c = campanhas.find((x) => x.id === id);
+  if (!c) return;
+  campanhaAberta = id;
+  history.replaceState(null, "", `#campanha-${id}`);
+
+  const emoji = c.emoji ? `${esc(c.emoji)} ` : "";
+  conteudo.innerHTML = `
+    <h2>${emoji}${esc(c.nome)}</h2>
+    <p class="jogo">${esc(c.jogo)}</p>
+    ${c.imagem ? `<img class="capa-grande" src="${esc(c.imagem)}" alt="">` : ""}
+    ${(c.detalhes || []).map((t) => `<p>${esc(t)}</p>`).join("")}
+    ${c.risco ? `<p class="nota"><strong>⚠️ Risco:</strong> ${esc(c.risco)}</p>` : ""}
+    <div id="progresso-modal">${barraProgresso(c)}</div>
+    <button class="btn-link" id="btn-como" type="button">Como funciona?</button>
+    <section id="checkout" class="checkout"></section>
+  `;
+  $("#btn-como").addEventListener("click", () => abrirComoFunciona());
+  if (!modal.open) modal.showModal();
+  mostrarCheckoutDoacao(c);
+}
+
+function mostrarCheckoutDoacao(c) {
+  if (c.situacao !== "arrecadando") {
+    const box = $("#checkout");
+    box.dataset.estado = "encerrada";
+    box.innerHTML = `<span class="selo">${esc(SELOS_CAMPANHA[c.situacao] || "")}</span>`;
+    return;
+  }
+  const chave = `doacao:${c.id}`;
+  const anterior = guardado.ler(chave);
+  if (anterior?.id) {
+    if (anterior.expira_em > Date.now()) return mostrarPix(alvoDoacao(c), anterior);
+    guardado.apagar(chave);
+  }
+  mostrarEscolhaDoacao(c);
+}
+
+function alvoDoacao(c) {
+  const chave = `doacao:${c.id}`;
+  return {
+    chave,
+    voltar: () => mostrarEscolhaDoacao(c),
+    aprovado(st, pix) {
+      guardado.apagar(chave);
+      if (st.campanha) {
+        Object.assign(c, st.campanha);
+        renderizarCampanhas();
+        const slot = $("#progresso-modal");
+        if (slot) slot.innerHTML = barraProgresso(c);
+      }
+      const box = $("#checkout");
+      box.dataset.estado = "pago";
+      const aberta = c.situacao === "arrecadando";
+      box.innerHTML = `
+        <div class="sucesso">
+          <h3>✅ Doação confirmada. Muito obrigado! 💛</h3>
+          <p>Sua contribuição de ${reais(pix.valor)} já está na barra.</p>
+          ${aberta ? `<button class="btn-link" id="btn-doar-de-novo" type="button">💛 Doar de novo</button>`
+                   : `<p>🎉 A meta foi atingida! O trabalho no patch vai começar.</p>`}
+        </div>
+      `;
+      $("#btn-doar-de-novo")?.addEventListener("click", () => mostrarEscolhaDoacao(c));
+    },
+  };
+}
+
+function mostrarEscolhaDoacao(c) {
+  const box = $("#checkout");
+  box.dataset.estado = "escolha";
+  box.innerHTML = `
+    <h3>Apoie esta campanha</h3>
+    <div class="valores" role="radiogroup" aria-label="Valor da doação">
+      ${VALORES_DOACAO.map((v, i) => `
+        <label class="chip"><input type="radio" name="valor" value="${v}" ${i === 0 ? "checked" : ""}><span>${reais(v)}</span></label>`).join("")}
+      <label class="chip outro">
+        <input type="radio" name="valor" value="outro"><span>Outro</span>
+      </label>
+    </div>
+    <div class="valor-outro" hidden>
+      <label>R$ <input type="number" id="valor-livre" min="1" step="0.01" inputmode="decimal" placeholder="10,00"></label>
+    </div>
+    <p class="explica" id="explica"></p>
+    <button class="btn btn-primario" id="btn-pix" type="button">⚡ Gerar Pix</button>
+    <p class="msg" id="msg" role="alert"></p>
+  `;
+
+  const atualizarExplica = () => {
+    const v = valorEscolhido();
+    const el = $("#explica");
+    if (!v || v < DOACAO_MINIMO) {
+      el.textContent = `Valor mínimo: ${reais(DOACAO_MINIMO)}.`;
+      return;
+    }
+    const completa = v >= c.meta_centavos - c.arrecadado_centavos;
+    el.textContent = `Sua doação soma ${reais(v)} na barra desta campanha.` + (completa ? " 🎉 Esta doação completa a meta!" : "");
+  };
+  box.onchange = (e) => {
+    if (e.target.name === "valor") {
+      const outro = e.target.value === "outro";
+      $(".valor-outro", box).hidden = !outro;
+      if (outro) $("#valor-livre").focus();
+    }
+    atualizarExplica();
+  };
+  $("#valor-livre").addEventListener("input", atualizarExplica);
+  atualizarExplica();
+  $("#btn-pix").addEventListener("click", () => gerarPixDoacao(c));
+}
+
+async function gerarPixDoacao(c) {
+  const valor = valorEscolhido();
+  const msg = $("#msg");
+  if (valor < DOACAO_MINIMO) {
+    msg.textContent = `O valor mínimo é ${reais(DOACAO_MINIMO)}.`;
+    return;
+  }
+  const btn = $("#btn-pix");
+  btn.disabled = true;
+  btn.textContent = "⏳ Gerando Pix…";
+  try {
+    const pix = await api("/api/doar", { method: "POST", body: JSON.stringify({ campanha: c.id, valor_centavos: valor }) });
+    const dados = { ...pix, valor };
+    guardado.gravar(`doacao:${c.id}`, dados);
+    mostrarPix(alvoDoacao(c), dados);
+  } catch (err) {
+    msg.textContent = err.message;
+    btn.disabled = false;
+    btn.textContent = "⚡ Gerar Pix";
+    // Pode ter sido a meta atingida enquanto a página estava aberta.
+    carregarCampanhas().then(() => {
+      const atual = campanhas.find((x) => x.id === c.id);
+      if (atual && atual.situacao !== "arrecadando" && modal.open && campanhaAberta === c.id) {
+        $("#progresso-modal").innerHTML = barraProgresso(atual);
+        mostrarCheckoutDoacao(atual);
+      }
+    });
+  }
+}
+
+function abrirComoFunciona() {
+  const voltarPara = campanhaAberta;
+  history.replaceState(null, "", "#como-funciona");
+  conteudo.innerHTML = `
+    <h2>💛 Como funciona o financiamento coletivo</h2>
+    <p>Cada campanha é um patch que ainda não existe e que eu quero fazer. Ela tem uma <strong>meta</strong> em reais e uma barra que mostra quanto já foi arrecadado.</p>
+    <p><strong>1. Você doa por Pix.</strong> Escolha a campanha e o valor. Assim que o Pix é confirmado, o valor inteiro entra na barra daquela campanha.</p>
+    <p><strong>2. Sem prazo.</strong> A campanha fica aberta até a meta ser atingida. Não existe "tudo ou nada" com data marcada.</p>
+    <p><strong>3. Bateu a meta, o trabalho começa.</strong> Quando a soma atinge a meta (a última doação pode até passar um pouco), a campanha fecha e não recebe mais doações. Aí o desenvolvimento começa.</p>
+    <p><strong>4. O patch sai do jeito de sempre.</strong> Quando ficar pronto, ele entra na lista do site como os outros: R$ 1 por download ou grátis pelo saldo de cortesia. Doar <strong>não</strong> dá download automático. A doação paga o trabalho de criar o patch.</p>
+    <p><strong>5. O risco é de todos nós.</strong> Em romhacking, muitas vezes só dá para saber se uma ideia é viável depois de começar (um chip lento demais para emular, falta de espaço na ROM, etc.). Se o patch se mostrar <strong>inviável</strong>, eu aviso aqui no site e <strong>todo o valor arrecadado na campanha vira saldo de downloads cortesia</strong>, que qualquer pessoa pode usar para baixar qualquer patch do site. O dinheiro não é devolvido via Pix, mas também não some: ele volta para a comunidade.</p>
+    <p><strong>6. As contas são separadas.</strong> O dinheiro das campanhas não se mistura com o saldo de cortesia dos downloads. A única exceção é a conversão do item 5.</p>
+    ${voltarPara ? `<button class="btn" id="btn-voltar" type="button">↩️ Voltar para a campanha</button>` : ""}
+  `;
+  $("#btn-voltar")?.addEventListener("click", () => abrirCampanha(voltarPara));
+  if (!modal.open) modal.showModal();
+}
+
+$("#btn-como-funciona").addEventListener("click", () => abrirComoFunciona());
 
 // ---------------------------------------------------------------------------
 
