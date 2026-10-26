@@ -467,7 +467,7 @@ function barraProgresso(c) {
 }
 
 const SELOS_CAMPANHA = {
-  financiada: "✅ Meta atingida! Trabalho começando",
+  financiada: "✅ Meta atingida",
   "em-producao": "🛠️ Em produção",
   lancada: "🎉 Lançado!",
   inviavel: "↪️ Inviável: valor convertido em downloads cortesia",
