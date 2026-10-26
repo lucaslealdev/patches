@@ -334,7 +334,17 @@ function pararPolling() {
   polling = null;
 }
 
+// O Worker usa a versão só para nomear o arquivo baixado.
+function comVersao(url, p) {
+  return p.versao ? `${url}&v=${encodeURIComponent(p.versao)}` : url;
+}
+
+function nomeArquivo(p) {
+  return p.versao ? `${p.id}-v${p.versao}.bps` : `${p.id}.bps`;
+}
+
 function mostrarPago(p, url, valor) {
+  url = comVersao(url, p);
   const box = $("#checkout");
   box.dataset.estado = "pago";
   const extra = valor ? valor - saldo.preco_centavos : 0;
@@ -343,7 +353,7 @@ function mostrarPago(p, url, valor) {
       <h3>✅ Pagamento confirmado. Obrigado!</h3>
       ${extra > 0 ? `<p>Seus ${reais(extra)} a mais foram para o saldo de cortesia. Valeu demais! 💛</p>` : ""}
       <p>O download deve começar sozinho. Se não começar:</p>
-      <a class="btn btn-primario" href="${esc(url)}">📥 Baixar ${esc(p.id)}.bps</a>
+      <a class="btn btn-primario" href="${esc(url)}">📥 Baixar ${esc(nomeArquivo(p))}</a>
     </div>
   `;
   location.href = url;
@@ -363,7 +373,7 @@ function mostrarJaPago(p, anterior) {
   $("#btn-rebaixar").addEventListener("click", async () => {
     try {
       const st = await api(`/api/pagamento/${anterior.id}`);
-      if (st.download_url) location.href = st.download_url;
+      if (st.download_url) location.href = comVersao(st.download_url, p);
       else throw new Error("Não foi possível recuperar o download.");
     } catch (err) {
       $("#msg").textContent = err.message;
@@ -418,16 +428,17 @@ async function baixarGratis(p) {
   btn.textContent = "⏳ Liberando…";
   try {
     const r = await api("/api/gratis", { method: "POST", body: JSON.stringify({ patch: p.id, turnstile: token }) });
+    const url = comVersao(r.download_url, p);
     const box = $("#checkout");
     box.dataset.estado = "pago";
     box.innerHTML = `
       <div class="sucesso">
         <h3>🎁 Download cortesia liberado!</h3>
         <p>Alguém pagou a mais para que você pudesse baixar. Se curtir o patch, considere contribuir para o próximo. 💛</p>
-        <a class="btn btn-primario" href="${esc(r.download_url)}">📥 Baixar ${esc(p.id)}.bps</a>
+        <a class="btn btn-primario" href="${esc(url)}">📥 Baixar ${esc(nomeArquivo(p))}</a>
       </div>
     `;
-    location.href = r.download_url;
+    location.href = url;
   } catch (err) {
     msg.textContent = err.message;
     btn.disabled = false;
