@@ -41,19 +41,24 @@
     "nome": "Mega Man X3 (noCx4 + PT-BR)",
     "emoji": "🤖",
     "jogo": "Mega Man X3 (SNES)",
-    "versao": "1.0",
+    "versao": "1.1",
     "imagem": "",
     "resumo": "Remove a dependência do chip Cx4 e adiciona o idioma Português do Brasil.",
     "detalhes": [
       "Todo o trabalho do coprocessador Cx4 (sprites, matemática, efeitos de arame, rotação e escala) foi reimplementado na CPU do SNES, permitindo rodar Mega Man X3 em flashcarts e repros sem suporte ao chip.",
-      "A ROM é expandida para 4 MB para acomodar o código adicional."
+      "A ROM é expandida para 4 MB para acomodar o código adicional.",
+      "Versão 1.1: corrige o ícone da arma solto no HUD ao montar na Ride Armor, o bloco de glitch gráfico na barra de vida do chefe ao pausar, o laser do Kaiser Sigma cortado na horizontal e faz o redirecionamento preventivo de rotinas remanescentes do Cx4 (como o flash do Heart Tank)."
     ],
     "mudancas": [
       "Remoção da dependência do chip Cx4",
       "Seletor de idioma English / Português no menu inicial",
       "Tradução de textos, menus, diálogos e créditos para Português do Brasil",
       "Expansão da ROM para 4 MB",
-      "Inclui uma função secreta de desenvolvimento"
+      "Inclui uma função secreta de desenvolvimento",
+      "v1.1 — Ride Armor: corrige o ícone da arma solto no HUD sem a barra de energia.",
+      "v1.1 — Barra do chefe ao pausar: elimina glitch com bloco cinza durante a pausa.",
+      "v1.1 — Kaiser Sigma: corrige feixe de laser cortado na horizontal ao disparar para cima.",
+      "v1.1 — Cx4: varredura preventiva e redirecionamento de rotinas raras não executadas (flash do Heart Tank, DMAs e boot)."
     ],
     "rom": {
       "nome": "Mega Man X 3 (U).smc",
