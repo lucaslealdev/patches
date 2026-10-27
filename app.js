@@ -125,13 +125,17 @@ function abrirPatch(id) {
     ${(p.detalhes || []).map((t) => `<p>${esc(t)}</p>`).join("")}
     ${p.nota ? `<p class="nota"><strong>⚠️ Nota:</strong> ${esc(p.nota)}</p>` : ""}
     ${p.mudancas?.length ? `<h3>O que muda</h3><ul>${p.mudancas.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+    ${p.creditos ? `<p class="creditos"><strong>Créditos:</strong> ${esc(p.creditos)}</p>` : ""}
+    ${p.links?.length ? `<p class="links">${p.links.map((l) => `🔗 <a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.texto)}</a>`).join("<br>")}</p>` : ""}
     ${p.rom ? `
-      <h3>ROM necessária</h3>
+      <h3>${[].concat(p.rom).length > 1 ? "ROMs aceitas" : "ROM necessária"}</h3>
+      ${[].concat(p.rom).map((r) => `
       <dl class="rom">
-        <dt>Arquivo</dt><dd>${esc(p.rom.nome)}</dd>
-        ${p.rom.crc32 ? `<dt>CRC32</dt><dd><code>${esc(p.rom.crc32)}</code></dd>` : ""}
-        ${p.rom.sha1 ? `<dt>SHA-1</dt><dd><code>${esc(p.rom.sha1)}</code></dd>` : ""}
-      </dl>` : ""}
+        ${r.rotulo ? `<dt>Uso</dt><dd>${esc(r.rotulo)}</dd>` : ""}
+        <dt>Arquivo</dt><dd>${esc(r.nome)}</dd>
+        ${r.crc32 ? `<dt>CRC32</dt><dd><code>${esc(r.crc32)}</code></dd>` : ""}
+        ${r.sha1 ? `<dt>SHA-1</dt><dd><code>${esc(r.sha1)}</code></dd>` : ""}
+      </dl>`).join("")}` : ""}
     <section id="checkout" class="checkout"></section>
   `;
   modal.showModal();
@@ -340,7 +344,8 @@ function comVersao(url, p) {
 }
 
 function nomeArquivo(p) {
-  return p.versao ? `${p.id}-v${p.versao}.bps` : `${p.id}.bps`;
+  const ext = p.arquivo === "zip" ? "zip" : "bps";
+  return p.versao ? `${p.id}-v${p.versao}.${ext}` : `${p.id}.${ext}`;
 }
 
 function mostrarPago(p, url, valor) {

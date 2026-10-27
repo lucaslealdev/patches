@@ -1,5 +1,49 @@
 [
   {
+    "id": "mega-man-x3-zero-project-nocx4",
+    "nome": "Mega Man X3 Zero Project (noCx4)",
+    "emoji": "⚔️",
+    "jogo": "Mega Man X3 Zero Project V4.8 (SNES)",
+    "versao": "1.0",
+    "imagem": "",
+    "arquivo": "zip",
+    "resumo": "Roda o romhack Zero Project sem o chip Cx4, em flashcarts e repros.",
+    "detalhes": [
+      "O Mega Man X3 Zero Project V4.8 original só roda em emulador, porque o Cx4 real não endereça 4 MB de ROM. Este patch reimplementa na CPU do SNES tudo o que o chip fazia (montagem de OAM, rotação da seleção de fases, trapézio, arame do \"YOU GET\" e da cabeça do Sigma, linhas do logotipo, DMA), e a ROM passa a rodar em emulador comum e em hardware (FXPak/SD2SNES, cartucho com ROM e SRAM de 4 MB). Texto e jogabilidade são os do hack; a tradução em português não está neste patch.",
+      "O download é um .zip com dois arquivos BPS que levam à mesma ROM final. Use só um: o mmx3zp_semcx4.bps se você já tem a ROM do Zero Project (com o IPS aplicado), ou o mmx3zp_semcx4_da_original.bps se você só tem o Mega Man X3 (U) limpo. A ROM de origem precisa estar sem cabeçalho de copiador (512 bytes).",
+      "Versão 1.0: já inclui as correções feitas anteriormente no patch Mega Man X3 noCx4."
+    ],
+    "nota": "Os saves do Zero Project original não carregam nesta versão (o mapa de memória no cabeçalho da ROM mudou), e os saves daqui também não carregam no original. Alguns trechos ainda não foram testados em jogo, como chefes, finais e créditos. Se notar algo estranho, avise.",
+    "creditos": "o hack Mega Man X3 Zero Project é de Justin3009. Este patch só remove a dependência do chip Cx4.",
+    "links": [
+      {
+        "texto": "Mega Man X3 Zero Project no RomHacking.net",
+        "url": "https://www.romhacking.net/hacks/4086/"
+      }
+    ],
+    "mudancas": [
+      "Remoção da dependência do chip Cx4",
+      "ROM FastROM de 4 MB com SRAM de 8 KB, com cabeçalho adequado para hardware",
+      "Menu de cheats na pausa (SELECT): Multi Jump, Inf. Life, Super Shot, Inf. Weapon, Max Damage e Saber On (botão X)",
+      "Para compensar a CPU fazendo o trabalho do chip, alguns efeitos visuais foram simplificados (holofote e lasers atualizados em quadros alternados, cone do holofote a 30 Hz, pisca dos mísseis, abelhas do Blast Hornet)",
+      "Crédito \"PATCH: LUCASLEAL.DEV\" na tela de copyright do boot"
+    ],
+    "rom": [
+      {
+        "rotulo": "Para mmx3zp_semcx4.bps (ROM do Zero Project V4.8 com o IPS aplicado, 4 MB)",
+        "nome": "Mega Man X3 Zero Project V4.8.sfc",
+        "crc32": "ACCF5D32",
+        "sha1": "849DDA0E77082C22604D7F14467E1384F9999CAF"
+      },
+      {
+        "rotulo": "Para mmx3zp_semcx4_da_original.bps (ROM original limpa, sem cabeçalho, 2 MB)",
+        "nome": "Mega Man X 3 (U).sfc",
+        "crc32": "FA0FE671",
+        "sha1": "B226F7EC59283B05C1E276E2F433893F45027CAC"
+      }
+    ]
+  },
+  {
     "id": "mega-man-x2-nocx4-v1-4",
     "nome": "Mega Man X2 (noCx4 + PT-BR)",
     "emoji": "🤖",
