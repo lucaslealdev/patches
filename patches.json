@@ -24,9 +24,8 @@
     "mudancas": [
       "Remoção da dependência do chip Cx4",
       "ROM FastROM de 4 MB com SRAM de 8 KB, com cabeçalho adequado para hardware",
-      "Menu de cheats na pausa (SELECT): Multi Jump, Inf. Life, Super Shot, Inf. Weapon, Max Damage e Saber On (botão X)",
-      "Para compensar a CPU fazendo o trabalho do chip, alguns efeitos visuais foram simplificados (holofote e lasers atualizados em quadros alternados, cone do holofote a 30 Hz, pisca dos mísseis, abelhas do Blast Hornet)",
-      "Crédito \"PATCH: LUCASLEAL.DEV\" na tela de copyright do boot"
+      "Menu de cheats na pausa: Multi Jump, Inf. Life, Super Shot, Inf. Weapon, Max Damage e Saber On (botão X)",
+      "Para compensar a CPU fazendo o trabalho do chip, alguns efeitos visuais foram simplificados (holofote e lasers atualizados em quadros alternados, cone do holofote a 30 Hz, pisca dos mísseis, abelhas do Blast Hornet)"
     ],
     "rom": [
       {
