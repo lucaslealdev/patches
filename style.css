@@ -131,6 +131,7 @@ body:has(.modal[open]) { overflow: hidden; }
 .rom { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: .9rem; }
 .rom dt { color: var(--suave); }
 .rom dd { margin: 0; }
+.rom + .rom { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--borda); }
 
 .checkout { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--borda); display: flex; flex-direction: column; gap: 12px; }
 .checkout h3 { margin: 0; }
