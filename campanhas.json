@@ -24,5 +24,18 @@
     ],
     "risco": "Adaptar o jogo de PAL para NTSC pode exigir ajustes de velocidade e de áudio, e só dá para saber o tamanho do trabalho depois de começar.",
     "patch": ""
+  },
+  {
+    "id": "cadillacs-and-dinosaurs",
+    "nome": "Cadillacs and Dinosaurs (port para SNES)",
+    "emoji": "🦖",
+    "jogo": "Cadillacs and Dinosaurs (Arcade → SNES)",
+    "imagem": "",
+    "resumo": "Portar o jogo de arcade Cadillacs and Dinosaurs para o Super Nintendo.",
+    "detalhes": [
+      "Cadillacs and Dinosaurs é um beat 'em up de arcade. O patch vai levar a jogabilidade, as fases e os gráficos da versão de arcade para o Super Nintendo, adaptando o que for preciso às limitações do hardware."
+    ],
+    "risco": "Portar um jogo de arcade para SNES é um trabalho grande: sprites, memória e áudio precisam ser adaptados, e só dá para saber o tamanho real do trabalho depois de começar.",
+    "patch": ""
   }
 ]
