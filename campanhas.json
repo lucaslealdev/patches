@@ -11,5 +11,18 @@
     ],
     "risco": "Adaptar o jogo de PAL para NTSC pode exigir ajustes de velocidade e de áudio, e só dá para saber o tamanho do trabalho depois de começar.",
     "patch": ""
+  },
+  {
+    "id": "tintin-in-tibet",
+    "nome": "Tintin no Tibete (versão NTSC)",
+    "emoji": "🧭",
+    "jogo": "Tintin in Tibet (SNES, Europa)",
+    "imagem": "",
+    "resumo": "Fazer o jogo europeu (PAL) funcionar em consoles NTSC.",
+    "detalhes": [
+      "Tintin in Tibet foi lançado só na Europa e não é compatível com consoles NTSC. O patch vai adaptar o jogo para rodar corretamente em NTSC."
+    ],
+    "risco": "Adaptar o jogo de PAL para NTSC pode exigir ajustes de velocidade e de áudio, e só dá para saber o tamanho do trabalho depois de começar.",
+    "patch": ""
   }
 ]
