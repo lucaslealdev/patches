@@ -168,6 +168,8 @@ body:has(.modal[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
 
 /* Campanhas de financiamento coletivo */
+.aviso-tutorial { margin: 0 0 32px; }
+.aviso-tutorial p { margin: 0; }
 .campanhas-sec { margin-bottom: 32px; }
 .campanhas-topo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin-bottom: 8px; }
 .campanhas-topo h2, .titulo-sec { margin: 0; font-size: 1.25rem; }
