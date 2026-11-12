@@ -208,5 +208,24 @@
       "crc32": "92FAD6FC",
       "sha1": "B8CB0FB89DEC3E3DD7820E53562189EFC1875149"
     }
+  },
+  {
+    "id": "cadillacs-and-dinosaurs",
+    "nome": "Cadillacs and Dinosaurs (port para SNES)",
+    "emoji": "🦖",
+    "jogo": "Cadillacs and Dinosaurs (Arcade)",
+    "versao": "beta 1",
+    "imagem": "",
+    "resumo": "Port do beat 'em up de arcade Cadillacs and Dinosaurs para o Super Nintendo.",
+    "detalhes": [
+      "Leva o beat 'em up de arcade Cadillacs and Dinosaurs para o Super Nintendo, adaptando o que for preciso às limitações do hardware.",
+      "O patch é aplicado sobre o arquivo dino.zip (romset do MAME), e não sobre uma ROM de console."
+    ],
+    "nota": "Versão beta 1: primeira versão de teste do port.",
+    "rom": {
+      "nome": "dino.zip (romset MAME)",
+      "crc32": "EC8191D4",
+      "sha1": "26C68E6EC1CEB328531C3869C69B9BAD7B036563"
+    }
   }
 ]
