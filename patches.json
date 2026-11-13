@@ -9,11 +9,11 @@
     "resumo": "Port do beat 'em up de arcade Cadillacs and Dinosaurs para o Super Nintendo.",
     "detalhes": [
       "Leva o beat 'em up de arcade Cadillacs and Dinosaurs para o Super Nintendo, adaptando o que for preciso às limitações do hardware.",
-      "O patch é aplicado sobre o arquivo dino.zip (romset do MAME), e não sobre uma ROM de console."
+      "O patch é aplicado sobre o arquivo dino.zip (romset do MAME, versão World 930201), e não sobre uma ROM de console."
     ],
     "nota": "Versão beta 1: primeira versão de teste do port.",
     "rom": {
-      "nome": "dino.zip (coolrom)",
+      "nome": "dino.zip (World 930201, coolrom)",
       "crc32": "EC8191D4",
       "sha1": "26C68E6EC1CEB328531C3869C69B9BAD7B036563"
     }
