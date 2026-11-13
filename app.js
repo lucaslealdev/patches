@@ -7,7 +7,7 @@ const API = location.hostname === "localhost" || location.hostname === "127.0.0.
 const TURNSTILE_SITEKEY = location.hostname === "localhost" || location.hostname === "127.0.0.1"
   ? "1x00000000000000000000AA"
   : "0x4AAAAAAFBQHok785riSpYR";
-const VALORES_SUGERIDOS = [100, 200, 500, 1000]; // em centavos
+const VALORES_SUGERIDOS = [500, 1000, 2000, 5000]; // em centavos
 const VALORES_DOACAO = [500, 1000, 2000, 5000]; // em centavos
 const DOACAO_MINIMO = 100; // espelha DOACAO_MINIMO_CENTAVOS do Worker
 // ---------------------------------------------------------------------------
@@ -19,7 +19,7 @@ const conteudo = $("#modal-conteudo");
 let patches = [];
 let campanhas = []; // textos do JSON + números da API, juntos pelo id
 let campanhaAberta = null; // id da campanha cuja modal está aberta (para voltar do "Como funciona")
-let saldo = { saldo_centavos: 0, downloads_gratis: 0, preco_centavos: 100 };
+let saldo = { saldo_centavos: 0, downloads_gratis: 0, preco_centavos: 500 };
 let polling = null;
 
 const reais = (c) => (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -106,7 +106,7 @@ async function atualizarSaldo() {
   el.classList.toggle("tem", n > 0);
   el.textContent = n > 0
     ? `🎁 ${n} download${n > 1 ? "s" : ""} cortesia disponíve${n > 1 ? "is" : "l"}, graças a quem contribuiu a mais`
-    : "Nenhum download cortesia no momento. Contribua com mais de R$ 1 para liberar downloads para os próximos!";
+    : "Nenhum download cortesia no momento. Contribua com mais de R$ 5 para liberar downloads para os próximos!";
 }
 
 // ---------------------------------------------------------------------------
@@ -677,7 +677,7 @@ function abrirComoFunciona() {
     <p><strong>1. Você doa por Pix.</strong> Escolha a campanha e o valor. Assim que o Pix é confirmado, o valor inteiro entra na barra daquela campanha.</p>
     <p><strong>2. Sem prazo.</strong> A campanha fica aberta até a meta ser atingida. Não existe "tudo ou nada" com data marcada.</p>
     <p><strong>3. Bateu a meta, o trabalho começa.</strong> Quando a soma atinge a meta (a última doação pode até passar um pouco), a campanha fecha e não recebe mais doações. Aí o desenvolvimento começa.</p>
-    <p><strong>4. O patch sai do jeito de sempre.</strong> Quando ficar pronto, ele entra na lista do site como os outros: R$ 1 por download ou grátis pelo saldo de cortesia. Doar <strong>não</strong> dá download automático. A doação paga o trabalho de criar o patch.</p>
+    <p><strong>4. O patch sai do jeito de sempre.</strong> Quando ficar pronto, ele entra na lista do site como os outros: R$ 5 por download ou grátis pelo saldo de cortesia. Doar <strong>não</strong> dá download automático. A doação paga o trabalho de criar o patch.</p>
     <p><strong>5. O risco é de todos nós.</strong> Em romhacking, muitas vezes só dá para saber se uma ideia é viável depois de começar (um chip lento demais para emular, falta de espaço na ROM, etc.). Se o patch se mostrar <strong>inviável</strong>, eu aviso aqui no site e <strong>todo o valor arrecadado na campanha vira saldo de downloads cortesia</strong>, que qualquer pessoa pode usar para baixar qualquer patch do site. O dinheiro não é devolvido via Pix, mas também não some: ele volta para a comunidade.</p>
     <p><strong>6. As contas são separadas.</strong> O dinheiro das campanhas não se mistura com o saldo de cortesia dos downloads. A única exceção é a conversão do item 5.</p>
     ${voltarPara ? `<button class="btn" id="btn-voltar" type="button">↩️ Voltar para a campanha</button>` : ""}
